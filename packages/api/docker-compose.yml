@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  linkcategorizer_db:
+    container_name: 'linkcategorizer_db'
+    image: postgres:13.1-alpine
+    ports:
+      - '${LINKCATEGORIZER_DB_PORT}:${LINKCATEGORIZER_DB_PORT}'
+    environment:
+      - POSTGRES_USER=${LINKCATEGORIZER_DB_USERNAME}
+      - POSTGRES_PASSWORD=${LINKCATEGORIZER_DB_PASSWORD}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
