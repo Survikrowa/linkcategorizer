@@ -1,16 +1,13 @@
 {
   "name": "linkcategorizer",
   "version": "1.0.0",
-  "workspaces": [
-    "packages/*"
-  ],
   "repository": "git@github.com:Survikrowa/linkcategorizer.git",
   "author": "Szymon Hrabia <35381167+Survikrowa@users.noreply.github.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "client": "yarn workspace mobile start",
-    "server": "yarn workspace api start",
+    "client": "yarn --cwd ./packages/mobile start",
+    "server": "yarn --cwd ./packages/api start",
     "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\"",
     "format": "prettier --write \"**/*.{js,ts,tsx}\"",
     "lint:server": "yarn workspace api lint",
@@ -18,7 +15,8 @@
     "link": "concurrently --kill-others-on-fail \"yarn lint:server\"  \"yarn lint:client\"",
     "postinstall": "husky install",
     "pretty": "pretty-quick --staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "migrate:db": "yarn --cwd ~/packages/api migrate:db"
   },
   "dependencies": {
     "concurrently": "^6.2.0"
