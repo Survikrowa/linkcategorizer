@@ -1,5 +1,6 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types';
 
@@ -10,10 +11,14 @@ type HomeScreenProps = {
 };
 
 export const HomeScreen = ({ navigation }: HomeScreenProps) => {
+  useEffect(() => {
+    if (true) {
+      navigation.navigate('Register');
+    }
+  }, []);
   return (
-    <View>
-      <Text>Welcome on Home Page i guess</Text>
-      <Button title="Zaloguj się" onPress={() => navigation.navigate('Auth')} />
-    </View>
+    <SafeAreaView>
+      <Text>Here will be Form for auth</Text>
+    </SafeAreaView>
   );
 };

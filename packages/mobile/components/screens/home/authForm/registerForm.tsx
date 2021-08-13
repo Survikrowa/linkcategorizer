@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, Button, View } from 'react-native';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { Input } from '../../common/Input';
-import { EMAIL_REGEX } from '../../../constants/constants';
-import { axiosInstance } from '../../../utils/axiosInstance';
+import { Input } from '../../../common/Input';
+import { EMAIL_REGEX } from '../../../../constants/constants';
+import { axiosInstance } from '../../../../utils/axiosInstance';
 
 type RegisterFormInputs = {
   username: string;
@@ -12,10 +12,10 @@ type RegisterFormInputs = {
 };
 
 type RegisterFormProps = {
-  handleFormChange: (formType: 'login' | 'register') => void;
+  onPress: () => void;
 };
 
-export const RegisterForm = ({ handleFormChange }: RegisterFormProps) => {
+export const RegisterForm = ({ onPress }: RegisterFormProps) => {
   const {
     handleSubmit,
     control,
@@ -36,8 +36,7 @@ export const RegisterForm = ({ handleFormChange }: RegisterFormProps) => {
   return (
     <View>
       <Text>
-        Posiadasz już konto? W takim razie{' '}
-        <Text onPress={() => handleFormChange('login')}>zaloguj się</Text>
+        Posiadasz już konto? W takim razie <Text onPress={onPress}>zaloguj się</Text>
       </Text>
       <View>
         <Text>Nazwa użytkownika:</Text>

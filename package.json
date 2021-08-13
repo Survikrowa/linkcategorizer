@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "client": "yarn --cwd ./packages/mobile start",
-    "server": "yarn --cwd ./packages/api start",
+    "server": "yarn --cwd ./packages/api start:dev",
     "start": "concurrently --kill-others-on-fail \"yarn server\"  \"yarn client\"",
     "format": "prettier --write \"**/*.{js,ts,tsx}\"",
     "lint:server": "yarn workspace api lint",

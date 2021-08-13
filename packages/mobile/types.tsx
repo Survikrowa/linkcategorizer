@@ -8,4 +8,6 @@ export type RootStackParamList = {
   NotFound: undefined;
   Home: undefined;
   Auth: undefined;
+  Register: undefined;
+  Login: undefined;
 };
