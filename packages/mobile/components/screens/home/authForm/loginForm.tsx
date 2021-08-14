@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Text, View } from 'react-native';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { axiosInstance } from '../../../../utils/axiosInstance';
 import { Input } from '../../../common/Input';
+import { useNavigation } from '@react-navigation/native';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 type LoginFormInputs = {
   username: string;
@@ -21,12 +23,24 @@ export const LoginForm = ({ onPress }: LoginFormProps) => {
   } = useForm<LoginFormInputs>({
     reValidateMode: 'onChange',
   });
-  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+  const [error, setError] = useState('');
+  const navigation = useNavigation();
+  const { setItem } = useAsyncStorage('jwt');
+  const onSubmit: SubmitHandler<LoginFormInputs> = async ({ username, password }) => {
     try {
-      const response = (await axiosInstance.post('/auth/login')).data;
-      console.log(response);
+      const response = (
+        await axiosInstance.post('/auth/login', {
+          username,
+          password,
+        })
+      ).data;
+      if (response.status === 200) {
+        await setItem(response.accessToken);
+        setError('');
+        navigation.navigate('Home');
+      }
     } catch (e) {
-      console.log(e);
+      setError(e.message);
     }
   };
   return (
@@ -66,6 +80,7 @@ export const LoginForm = ({ onPress }: LoginFormProps) => {
         {errors?.password?.type === 'minLength' && <Text>Hasło musi być na minimum 8 znaków</Text>}
       </View>
       <Button title="Zaloguj się" onPress={handleSubmit(onSubmit)} />
+      <Text>{error && error}</Text>
     </View>
   );
 };
