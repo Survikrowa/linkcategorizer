@@ -6,9 +6,9 @@ import {
   Res,
   UseGuards,
   UsePipes,
-  Request,
+  Req,
 } from '@nestjs/common';
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
 import { CreateUserDto } from './DTO/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { hash } from 'bcrypt';
@@ -44,7 +44,6 @@ export class AuthController {
         },
       ],
     });
-    console.log(user);
     if (user) {
       return res
         .status(HttpStatus.CONFLICT)
@@ -66,7 +65,8 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   @UsePipes(new JoiValidationPipe(userLogInCredentialSchema))
-  async logInUser(@Request() { user: { username } }: UserDto) {
-    return this.authService.login({ username });
+  async logInUser(@Req() req: Request) {
+    const user = req.user as UserDto;
+    return this.authService.login(user);
   }
 }
