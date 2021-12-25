@@ -47,7 +47,7 @@ export class AuthController {
     if (user) {
       return res
         .status(HttpStatus.CONFLICT)
-        .json({ status: 409, message: 'User already exists' });
+        .json({ status: 409, message: 'Użytkownik już istnieje' });
     }
     const hashedPassword = await hash(password, BCRYPT_SALT_ROUNDS);
     const savedUser = this.authService.saveUserToDatabase({
@@ -58,7 +58,7 @@ export class AuthController {
     if (savedUser) {
       return res.status(HttpStatus.CREATED).json({
         status: 201,
-        message: 'User successfully created! You can log in now.',
+        message: 'Rejestracja przebiegła pomyślnie! Możesz sie zalogować',
       });
     }
   }

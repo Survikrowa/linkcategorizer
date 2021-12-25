@@ -10,4 +10,15 @@ export type RootStackParamList = {
   Auth: undefined;
   Register: undefined;
   Login: undefined;
+  MyLink: {
+    name: string;
+  };
+  NewCategory: undefined;
+  NewLinkForCategory: undefined;
+};
+
+export type ParamList = {
+  MyLink: {
+    categoryId: string;
+  };
 };
