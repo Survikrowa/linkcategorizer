@@ -1,6 +1,6 @@
 import axios from 'axios';
-// import { BASE_API_URL } from 'react-native-dotenv';
+import { ENV_VARIABLES } from '../env.variables';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://192.168.1.15:8080/api',
+  baseURL: `${ENV_VARIABLES}/api`,
 });
