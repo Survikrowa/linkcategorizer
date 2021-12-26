@@ -4,12 +4,15 @@ import { RootStackParamList } from '../../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RegisterForm } from '../../components/screens/register/RegisterForm';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { getDimensionsProps } from '../../utils/getDimensionsProps';
 
 type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
 
 type RegisterScreenProps = {
   navigation: RegisterScreenNavigationProp;
 };
+
+const { screenWidth } = getDimensionsProps();
 
 export const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
   const handleScreenChange = () => navigation.navigate('Login');
@@ -30,5 +33,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     backgroundColor: '#f0fffe',
+    width: screenWidth,
   },
 });

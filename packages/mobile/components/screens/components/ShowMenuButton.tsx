@@ -1,9 +1,11 @@
 import React from 'react';
 import ExpandableFloatingAction from 'react-native-expandable-fab';
-import { StatusBar, Text, Dimensions } from 'react-native';
+import { Text } from 'react-native';
 import { Entypo, Foundation } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../types';
 
 type ShowMenuButtonProps = {
   navigateTo: 'NewCategory' | 'NewLinkForCategory';
@@ -11,8 +13,10 @@ type ShowMenuButtonProps = {
   name: 'createNewList' | 'createNewLink';
 };
 
+type ShowMenuButtonNavigation = StackNavigationProp<RootStackParamList>;
+
 export const ShowMenuButton = ({ navigateTo, text, name }: ShowMenuButtonProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ShowMenuButtonNavigation>();
   return (
     <ExpandableFloatingAction
       mainColor="white"

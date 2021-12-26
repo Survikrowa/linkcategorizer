@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { Input } from '../../common/Input';
 import { EMAIL_REGEX } from '../../../constants/constants';
@@ -9,6 +9,8 @@ import { useToasts } from '../../../hooks/useToasts';
 import { HTTP_RESPONSES } from '../../../constants/HttpResponses';
 import { Button } from '../../common/Button';
 import { Card } from '../../common/Card';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../types';
 
 type RegisterFormInputs = {
   username: string;
@@ -20,6 +22,8 @@ type RegisterFormProps = {
   onPress: () => void;
 };
 
+type RegisterFormNavigation = StackNavigationProp<RootStackParamList>;
+
 export const RegisterForm = ({ onPress }: RegisterFormProps) => {
   const {
     handleSubmit,
@@ -29,7 +33,7 @@ export const RegisterForm = ({ onPress }: RegisterFormProps) => {
     reValidateMode: 'onChange',
   });
   const [error, setError] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<RegisterFormNavigation>();
   const { dispatch } = useToasts();
   const onSubmit: SubmitHandler<RegisterFormInputs> = async ({ username, password, email }) => {
     try {
@@ -165,5 +169,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
+    padding: 16,
+    marginTop: 8,
   },
 });
