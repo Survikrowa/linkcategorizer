@@ -1,27 +1,13 @@
-import React, { useEffect } from 'react';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import { HomeScreen } from '../../components/screens/home/HomeScreen';
 import { ShowMenuButton } from '../../components/screens/components/ShowMenuButton';
-import { StatusBar, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { getDimensionsProps } from '../../utils/getDimensionsProps';
 
 const { screenWidth, screenHeight, navbarHeight } = getDimensionsProps();
-// @ts-ignore
 
 export const MyLinks = () => {
-  const navigation = useNavigation();
-  const { getItem } = useAsyncStorage('jwt');
-  useEffect(() => {
-    getItem().then((accessToken) => {
-      console.log(accessToken);
-
-      if (!accessToken) {
-        navigation.navigate('Login');
-      }
-    });
-  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <HomeScreen />
