@@ -9,6 +9,7 @@ import { NativeStackNavigationProp } from 'react-native-screens/native-stack';
 import { RootStackParamList } from '../../../types';
 import { Card } from '../../common/Card';
 import { Button } from '../../common/Button';
+import { useToasts } from '../../../hooks/useToasts';
 
 type LoginFormInputs = {
   username: string;
@@ -32,6 +33,7 @@ export const LoginForm = ({ onPress }: LoginFormProps) => {
   const [error, setError] = useState('');
   const navigation = useNavigation<LoginScreenNavigationProps>();
   const { setItem } = useAsyncStorage('jwt');
+  const { dispatch } = useToasts();
   const onSubmit: SubmitHandler<LoginFormInputs> = async ({ username, password }) => {
     try {
       const response = (
@@ -43,6 +45,13 @@ export const LoginForm = ({ onPress }: LoginFormProps) => {
       if (response.status === 200) {
         await setItem(response.accessToken);
         setError('');
+        dispatch({
+          type: 'ShowToast',
+          payload: {
+            message: 'Pomyślnie zalogowano!',
+            duration: 'SHORT',
+          },
+        });
         navigation.navigate('Home');
       }
     } catch (e: any) {
@@ -80,7 +89,7 @@ export const LoginForm = ({ onPress }: LoginFormProps) => {
                 minLength: 8,
               }}
               render={({ field: { onChange, value } }) => (
-                <Input onChangeText={onChange} value={value} textContentType="password" />
+                <Input onChangeText={onChange} value={value} secureTextEntry />
               )}
               name="password"
               defaultValue=""
